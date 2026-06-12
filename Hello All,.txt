@@ -1,0 +1,744 @@
+# Python Functions - Complete Guide 🐍
+
+---
+
+## Function Kya Hota Hai? 💡
+
+```python
+# Function = Ek reusable code block
+# Jo ek specific kaam karta hai
+# Baar baar use kar sakte ho
+
+# Real Life Example:
+# Calculator ka + button
+# Har baar press karo = add karta hai
+# Ek baar banaya = baar baar use kiya
+```
+
+---
+
+## Function ke ALL PARTS 🎯
+
+```python
+#    1        2         3    4
+#    ↓        ↓         ↓    ↓
+def add_numbers(num1, num2) -> int:
+#5      ↓
+    """Returns sum of two numbers"""
+#6      ↓
+    result = num1 + num2
+#7      ↓
+    return result
+
+# 1. def       = Keyword
+# 2. add_numbers = Function Name
+# 3. num1,num2 = Parameters
+# 4. -> int    = Return Type Hint
+# 5. """ """   = Docstring
+# 6. result=.. = Function Body
+# 7. return    = Return Statement
+```
+
+---
+
+## Part 1: def Keyword 🔑
+
+```python
+# def = "Define" ka short form
+# Python ko batata hai ki
+# "Ek function shuru ho raha hai"
+
+def        # ← Yeh likhna ZARURI hai
+# Bina def ke function nahi banega!
+
+# ✅ Sahi:
+def my_function():
+    pass
+
+# ❌ Galat:
+my_function():    # SyntaxError!
+    pass
+```
+
+---
+
+## Part 2: Function Name 📛
+
+```python
+# Function ka naam dene ke rules:
+
+# ✅ SAHI NAAM:
+def add_numbers():     pass  # underscore OK
+def calculateTotal():  pass  # camelCase OK
+def get_data():        pass  # verb + noun
+def analyze():         pass  # single word
+
+# ❌ GALAT NAAM:
+def 1function():  pass  # Number se shuru NAHI
+def my-function():pass  # Hyphen NAHI
+def for():        pass  # Reserved word NAHI
+def ADD():        pass  # Convention: lowercase
+
+# 💡 Best Practice:
+# Naam se pata chale kya karta hai
+def calculate_revenue():  # ✅ Clear naam
+def xyz():                # ❌ Unclear naam
+```
+
+---
+
+## Part 3: Parameters 📦
+
+```python
+# Parameters = Function ke inputs
+# Define karte waqt likhte hain
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# TYPE 1: No Parameter
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+def greet():
+    print("Hello Rahul!")
+
+greet()  # Output: Hello Rahul!
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# TYPE 2: Single Parameter
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+def greet(name):
+    print(f"Hello {name}!")
+
+greet("Rahul")   # Output: Hello Rahul!
+greet("Python")  # Output: Hello Python!
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# TYPE 3: Multiple Parameters
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+def add(num1, num2):
+    return num1 + num2
+
+print(add(10, 20))  # Output: 30
+print(add(5, 3))    # Output: 8
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# TYPE 4: Default Parameter
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+def greet(name, city="Pune"):
+#                    ^^^^^^
+#              Default value
+#              Argument nahi diya
+#              to yeh use hoga
+
+greet("Rahul")          # Hello Rahul from Pune!
+greet("Rahul", "Mumbai")# Hello Rahul from Mumbai!
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# TYPE 5: *args Parameter
+# (Multiple arguments - Unlimited)
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+def add_all(*numbers):
+#           ^^^^^^^
+#           * = unlimited numbers
+#           Tuple mein store hota
+
+    total = 0
+    for n in numbers:
+        total += n
+    return total
+
+print(add_all(1, 2))        # 3
+print(add_all(1, 2, 3))     # 6
+print(add_all(1, 2, 3, 4))  # 10
+# Kitne bhi numbers de sakte ho!
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# TYPE 6: **kwargs Parameter
+# (Keyword Arguments - Unlimited)
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+def student_info(**details):
+#               ^^^^^^^^
+#               ** = key=value pairs
+#               Dictionary mein store
+
+    for key, value in details.items():
+        print(f"{key} : {value}")
+
+student_info(
+    name  = "Rahul",
+    city  = "Pune",
+    skill = "Python"
+)
+# Output:
+# name  : Rahul
+# city  : Pune
+# skill : Python
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# TYPE 7: All Combined
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+def mega_function(
+    name,           # Normal parameter
+    age = 25,       # Default parameter
+    *skills,        # args - unlimited
+    **details       # kwargs - key=value
+):
+    print(f"Name   : {name}")
+    print(f"Age    : {age}")
+    print(f"Skills : {skills}")
+    print(f"Details: {details}")
+
+mega_function(
+    "Rahul",
+    23,
+    "Python", "SQL", "PowerBI",
+    city  = "Pune",
+    cgpa  = 8.31
+)
+# Output:
+# Name   : Rahul
+# Age    : 23
+# Skills : ('Python', 'SQL', 'PowerBI')
+# Details: {'city': 'Pune', 'cgpa': 8.31}
+```
+
+---
+
+## Part 4: Arguments 🎯
+
+```python
+# Arguments = Call karte waqt
+#             di jaane wali values
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# TYPE 1: Positional Arguments
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+def student(name, marks, city):
+    print(f"{name} got {marks} in {city}")
+
+# Position matter karta hai!
+student("Rahul", 85, "Pune")
+#        ↓       ↓    ↓
+#       name   marks  city
+
+# ❌ Position wrong = Wrong output:
+student("Pune", 85, "Rahul")
+# Pune got 85 in Rahul ← WRONG!
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# TYPE 2: Keyword Arguments
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+def student(name, marks, city):
+    print(f"{name} got {marks} in {city}")
+
+# Naam ke saath dete hain
+# Position matter NAHI karta!
+student(
+    city  = "Pune",   # Position alag
+    name  = "Rahul",  # Position alag
+    marks = 85        # Position alag
+)
+# Output: Rahul got 85 in Pune ✅
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# TYPE 3: Mixed Arguments
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+def student(name, marks, city):
+    print(f"{name} got {marks} in {city}")
+
+# Positional pehle, Keyword baad mein
+student("Rahul", marks=85, city="Pune")
+# ✅ Sahi!
+
+# ❌ Galat - Positional baad mein nahi:
+student(name="Rahul", 85, city="Pune")
+# SyntaxError!
+```
+
+---
+
+## Part 5: Docstring 📄
+
+```python
+# Docstring = Function ka description
+# Triple quotes mein likhte hain
+# """ """ ya ''' '''
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# Single Line Docstring
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+def add(a, b):
+    """Returns sum of two numbers."""
+    return a + b
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# Multi Line Docstring
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+def calculate_revenue(price, units, discount):
+    """
+    Calculate total revenue after discount.
+
+    Parameters:
+        price    (float): Product price
+        units    (int)  : Units sold
+        discount (float): Discount percentage
+
+    Returns:
+        float: Total revenue after discount
+
+    Example:
+        >>> calculate_revenue(1000, 50, 10)
+        45000.0
+    """
+    discounted = price * (1 - discount/100)
+    return discounted * units
+
+# Docstring kaise dekhen:
+print(calculate_revenue.__doc__)
+help(calculate_revenue)
+```
+
+---
+
+## Part 6: Function Body 💪
+
+```python
+# Function Body = Actual kaam
+# Indentation ZARURI hai (4 spaces)
+
+def analyze_data(data):
+    # ━━━━━━━━━━━━━━━━━━━━
+    # BODY STARTS HERE
+    # ━━━━━━━━━━━━━━━━━━━━
+
+    # Variables
+    total   = sum(data)
+    average = total / len(data)
+    maximum = max(data)
+    minimum = min(data)
+
+    # Logic
+    if average > 50:
+        status = "Good Performance"
+    else:
+        status = "Needs Improvement"
+
+    # Print
+    print(f"Total   : {total}")
+    print(f"Average : {average}")
+    print(f"Max     : {maximum}")
+    print(f"Min     : {minimum}")
+    print(f"Status  : {status}")
+
+    # ━━━━━━━━━━━━━━━━━━━━
+    # BODY ENDS HERE
+    # ━━━━━━━━━━━━━━━━━━━━
+
+data = [45, 67, 89, 23, 78]
+analyze_data(data)
+```
+
+---
+
+## Part 7: Return Statement 🔙
+
+```python
+# Return = Function se value wapas lana
+# Return ke baad function STOP ho jaata
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# TYPE 1: No Return (None)
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+def greet(name):
+    print(f"Hello {name}")
+    # Koi return nahi
+    # Python automatically None return
+
+result = greet("Rahul")
+print(result)  # None
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# TYPE 2: Single Return
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+def add(a, b):
+    return a + b  # Ek value return
+
+result = add(10, 20)
+print(result)  # 30
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# TYPE 3: Multiple Return Values
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+def calculate(a, b):
+    add  = a + b
+    sub  = a - b
+    mul  = a * b
+    div  = a / b
+    return add, sub, mul, div
+#          ^^^^^^^^^^^^^^^^^^^
+#          4 values ek saath!
+#          Tuple mein return hota
+
+# Method 1: Unpack karke lena
+a, s, m, d = calculate(10, 5)
+print(a, s, m, d)  # 15 5 50 2.0
+
+# Method 2: Tuple mein lena
+result = calculate(10, 5)
+print(result)       # (15, 5, 50, 2.0)
+print(result[0])    # 15 (add)
+print(result[1])    # 5  (sub)
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# TYPE 4: Return Early (Guard)
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+def divide(a, b):
+    if b == 0:
+        return "Error: Zero se divide nahi!"
+        # Yahan STOP ho jaata hai
+    return a / b   # Yeh tabhi chalega
+                   # jab b != 0
+
+print(divide(10, 0))  # Error: Zero se...
+print(divide(10, 2))  # 5.0
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# TYPE 5: Return Dictionary
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+def get_student_info(name, marks):
+    return {
+        "name"   : name,
+        "marks"  : marks,
+        "grade"  : "A" if marks >= 80 else "B",
+        "status" : "Pass" if marks >= 35 else "Fail"
+    }
+
+info = get_student_info("Rahul", 85)
+print(info["name"])   # Rahul
+print(info["grade"])  # A
+```
+
+---
+
+## Part 8: Type Hints 📝
+
+```python
+# Type Hints = Parameter ka type batana
+# Optional hai but professional code
+# mein use karte hain
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# Basic Type Hints
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+def add(
+    num1: int,    # int type
+    num2: int     # int type
+) -> int:         # return int
+    return num1 + num2
+
+def greet(
+    name: str     # string type
+) -> str:         # return string
+    return f"Hello {name}"
+
+def calculate(
+    price   : float,  # float
+    quantity: int,    # int
+    discount: float   # float
+) -> float:           # return float
+    return price * quantity * (1 - discount)
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# Common Types
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# int    = Integer  (1, 2, 3)
+# float  = Decimal  (1.5, 2.7)
+# str    = String   ("Rahul")
+# bool   = Boolean  (True/False)
+# list   = List     ([1,2,3])
+# dict   = Dict     ({"key":"val"})
+# None   = No return
+```
+
+---
+
+## Part 9: Scope 🔭
+
+```python
+# Scope = Variable kahan accessible hai
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# LOCAL Scope
+# (Function ke andar ka variable)
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+def my_function():
+    local_var = "Main local hoon"
+    print(local_var)  # ✅ Works
+
+my_function()
+print(local_var)  # ❌ ERROR!
+# local_var bahar accessible nahi!
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# GLOBAL Scope
+# (Function ke bahar ka variable)
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+global_var = "Main global hoon"
+
+def my_function():
+    print(global_var)  # ✅ Works!
+    # Global variable andar
+    # accessible hai
+
+my_function()
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# Global Variable MODIFY karna
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+count = 0
+
+def increment():
+    global count   # ← Zaruri hai!
+    count += 1
+
+increment()
+increment()
+print(count)  # 2
+```
+
+---
+
+## Part 10: Function Types 🗂️
+
+```python
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# TYPE 1: Normal Function
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+def add(a, b):
+    return a + b
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# TYPE 2: Lambda Function
+# (One line function)
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+add = lambda a, b: a + b
+print(add(10, 20))  # 30
+
+square  = lambda x: x ** 2
+print(square(5))    # 25
+
+greet   = lambda name: f"Hello {name}"
+print(greet("Rahul"))  # Hello Rahul
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# TYPE 3: Nested Function
+# (Function ke andar Function)
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+def outer():
+    print("Outer function")
+
+    def inner():
+        print("Inner function")
+
+    inner()  # Inner yahan call hoga
+
+outer()
+# Output:
+# Outer function
+# Inner function
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# TYPE 4: Recursive Function
+# (Function khud ko call kare)
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+def factorial(n):
+    if n == 1:          # Base case
+        return 1
+    return n * factorial(n - 1)  # Recursion
+
+print(factorial(5))
+# 5 * 4 * 3 * 2 * 1 = 120
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# TYPE 5: Higher Order Function
+# (Function ko argument mein dena)
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+def apply(func, value):
+    return func(value)
+
+def double(x):
+    return x * 2
+
+def square(x):
+    return x ** 2
+
+print(apply(double, 5))  # 10
+print(apply(square, 5))  # 25
+```
+
+---
+
+## Real Project Example 🛒
+
+```python
+# E-Commerce project jaisa
+# (Tumhara NumPy project)
+# Pure Python Functions
+
+def calculate_revenue(
+    price    : float,
+    units    : int,
+    discount : float
+) -> float:
+    """
+    Calculate revenue after discount.
+
+    Parameters:
+        price    : Product price
+        units    : Units sold
+        discount : Discount percentage
+
+    Returns:
+        float: Total revenue
+    """
+    discounted_price = price * (1 - discount/100)
+    return discounted_price * units
+
+
+def get_grade(marks: int) -> str:
+    """Returns grade based on marks."""
+    if marks >= 90: return "A+"
+    elif marks >= 80: return "A"
+    elif marks >= 70: return "B"
+    elif marks >= 60: return "C"
+    elif marks >= 35: return "D"
+    else: return "F"
+
+
+def analyze_sales(*monthly_sales) -> dict:
+    """
+    Analyze multiple months sales data.
+
+    Parameters:
+        *monthly_sales: Unlimited monthly values
+
+    Returns:
+        dict: Complete analysis
+    """
+    total   = sum(monthly_sales)
+    average = total / len(monthly_sales)
+    best    = max(monthly_sales)
+    worst   = min(monthly_sales)
+
+    return {
+        "total"  : total,
+        "average": average,
+        "best"   : best,
+        "worst"  : worst
+    }
+
+
+def create_report(**product_data) -> None:
+    """
+    Create product report.
+
+    Parameters:
+        **product_data: Key-value product info
+    """
+    print("=" * 35)
+    print("   PRODUCT REPORT")
+    print("=" * 35)
+    for key, value in product_data.items():
+        print(f"  {key:<12} : {value}")
+    print("=" * 35)
+
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━
+# CALLING ALL FUNCTIONS
+# ━━━━━━━━━━━━━━━━━━━━━━━━
+
+# 1. Revenue
+rev = calculate_revenue(
+    price    = 1000,
+    units    = 50,
+    discount = 10
+)
+print(f"Revenue : Rs. {rev}")
+# Revenue : Rs. 45000.0
+
+# 2. Grade
+print(get_grade(85))   # A
+print(get_grade(72))   # B
+
+# 3. Sales Analysis
+result = analyze_sales(
+    45000, 52000, 38000,
+    61000, 55000, 49000
+)
+print(f"Total   : {result['total']}")
+print(f"Average : {result['average']}")
+print(f"Best    : {result['best']}")
+
+# 4. Report
+create_report(
+    product  = "Laptop",
+    price    = 45000,
+    units    = 150,
+    revenue  = 6750000,
+    rating   = 4.5,
+    discount = "10%"
+)
+```
+
+---
+
+## All Parts Summary Table 📊
+
+| Part | Name | Kaam | Example |
+|------|------|------|---------|
+| 1️⃣ | `def` | Function shuru | `def func():` |
+| 2️⃣ | Name | Function pehchaan | `add_numbers` |
+| 3️⃣ | Parameter | Input variable | `(num1, num2)` |
+| 4️⃣ | Argument | Actual value | `(10, 20)` |
+| 5️⃣ | Docstring | Description | `"""text"""` |
+| 6️⃣ | Body | Actual kaam | `result = a+b` |
+| 7️⃣ | Return | Value wapas | `return result` |
+| 8️⃣ | Type Hint | Type batana | `-> int` |
+| 9️⃣ | Scope | Variable range | `global/local` |
+| 🔟 | Types | Function kinds | `lambda/nested` |
+
+---
+
+## Parameter Types Summary 📦
+
+```
+Normal    → def f(a, b)
+Default   → def f(a, b=10)
+*args     → def f(*numbers)
+**kwargs  → def f(**details)
+All mixed → def f(a, b=10, *args, **kwargs)
+```
+
+---
+
+## Golden Rules 🏆
+
+```
+┌─────────────────────────────────────┐
+│                                     │
+│  1. def se shuru karo               │
+│  2. Naam clear rakho                │
+│  3. Parameter = variable naam       │
+│  4. Argument  = actual value        │
+│  5. Docstring zaroor likho          │
+│  6. Indentation 4 spaces            │
+│  7. Return value wapas karta hai    │
+│  8. DRY = Don't Repeat Yourself     │
+│                                     │
+└─────────────────────────────────────┘
+```
+
+---
+
+> ## Clear Hua Rahul? 😊
+> ## Koi Bhi Part Confusing Lage
+> ## To Batao - Detail Mein Samjhaunga!
+> ## 💪🔥🚀
